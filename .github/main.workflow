@@ -11,6 +11,6 @@ action "Build docker image" {
 
 action "Run test inside docker" {
   uses = "actions/docker/cli@8cdf801b322af5f369e00d85e9cf3a7122f49108"
-  args = "docker run --rm ecommerce-backend:latest pytest"
+  args = " run --rm saleor:$GITHUB_SHA pytest"
   needs = ["Build docker image"]
 }
