@@ -5,7 +5,7 @@ workflow "Check migrations" {
 
 action "Build docker image" {
   uses = "actions/docker/cli@8cdf801b322af5f369e00d85e9cf3a7122f49108"
-  args = "build -t saleor:$GITHUB_SHA ."
+  args = "build -t saleor:latest ."
   secrets = ["STATIC_URL"]
 }
 
