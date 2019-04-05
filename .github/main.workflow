@@ -17,7 +17,7 @@ action "Start db" {
 
 action "Check if there is missing migration" {
   uses = "docker://saleor"
-  runs = "DATABASE_URL=$DATABASE_URL SECRET_KEY=$SECRET_KEY ./manage.py makemigrations --check --dry-run"
+  runs = "python ./manage.py makemigrations --check --dry-run"
   secrets = ["STATIC_URL", "SECRET_KEY", "DATABASE_URL"]
   needs = ["Build docker image", "Start db"]
 }
