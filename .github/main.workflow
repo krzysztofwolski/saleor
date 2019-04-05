@@ -1,6 +1,6 @@
 workflow "Check migrations" {
   on = "push"
-  resolves = ["Run test inside docker"]
+  resolves = ["Check if there is missing migration"]
 }
 
 action "Build docker image" {
