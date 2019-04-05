@@ -1,6 +1,6 @@
 workflow "Check migrations" {
   on = "push"
-  resolves = ["Check if there is missing migration", "Check if schema is updated"]
+  resolves = ["Check if there is missing migration"]
 }
 
 action "Build docker image" {
@@ -16,8 +16,8 @@ action "Check if there is missing migration" {
 }
 
 
-action "Check if schema is updated" {
-  uses = "actions/docker/cli@8cdf801b322af5f369e00d85e9cf3a7122f49108"
-  args = "run -e SECRET_KEY=sekret --rm saleor:$GITHUB_SHA npm run build-schema"
-  needs = ["Build docker image"]
-}
+# action "Check if schema is updated" {
+#   uses = "actions/docker/cli@8cdf801b322af5f369e00d85e9cf3a7122f49108"
+#   args = "run -e SECRET_KEY=sekret --rm saleor:$GITHUB_SHA npm run build-schema"
+#   needs = ["Build docker image"]
+# }
