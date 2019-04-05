@@ -9,8 +9,8 @@ action "Build docker image" {
   secrets = ["STATIC_URL"]
 }
 
-action "Run test inside docker" {
+action "Check if there is missing migration" {
   uses = "actions/docker/cli@8cdf801b322af5f369e00d85e9cf3a7122f49108"
-  args = " run --rm saleor:$GITHUB_SHA pytest"
+  args = "run --rm saleor:$GITHUB_SHA ./manage.py makemigrations --check --dry-run"
   needs = ["Build docker image"]
 }
