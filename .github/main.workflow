@@ -19,10 +19,8 @@ action "Check if there is missing migration" {
   uses = "actions/docker/cli@8cdf801b322af5f369e00d85e9cf3a7122f49108"
   args = "run --network container:db --rm -e DATABASE_URL -e SECRET_KEY --rm saleor:$GITHUB_SHA ./manage.py makemigrations --check --dry-run"
   secrets = ["STATIC_URL", "SECRET_KEY", "DATABASE_URL"]
-
   needs = ["Build docker image", "Start db"]
 }
-
 
 # action "Check if schema is updated" {
 #   uses = "actions/docker/cli@8cdf801b322af5f369e00d85e9cf3a7122f49108"
