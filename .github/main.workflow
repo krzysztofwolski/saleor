@@ -9,10 +9,18 @@ action "Build docker image" {
   secrets = ["STATIC_URL"]
 }
 
+action "Start db" {
+  uses = "actions/docker/cli@8cdf801b322af5f369e00d85e9cf3a7122f49108"
+  args = "run -d --name db -e POSTGRES_USER=saleor -e POSTGRES_PASSWORD=saleor postgres:9.4-alpine"
+  secrets = ["STATIC_URL"]
+}
+
 action "Check if there is missing migration" {
   uses = "actions/docker/cli@8cdf801b322af5f369e00d85e9cf3a7122f49108"
-  args = "run -e SECRET_KEY=sekret --rm saleor:$GITHUB_SHA ./manage.py makemigrations --check --dry-run"
-  needs = ["Build docker image"]
+  args = "run --network container:db --rm -e DATABASE_URL -e SECRET_KEY --rm saleor:$GITHUB_SHA ./manage.py makemigrations --check --dry-run"
+  secrets = ["STATIC_URL"]
+
+  needs = ["Build docker image", "Start db"]
 }
 
 
