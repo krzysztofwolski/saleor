@@ -1,5 +1,5 @@
 workflow "Linters" {
-  on = "push"
+  on = "pull_request"
   resolves = ["Black Linter", "Flake8 Linter"]
 }
 
